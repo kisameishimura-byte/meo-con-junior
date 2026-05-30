@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <title>Kitty Love</title>
+    <title>Kitty love</title>
     <style>
         * { margin: 0; padding: 0; box-sizing: border-box; }
         body {
@@ -21,6 +21,7 @@
             color: #ff3366;
             text-shadow: 2px 2px 10px rgba(255,255,255,0.5);
             margin-bottom: 30px;
+            z-index: 5;
         }
 
         #btn-heart {
@@ -29,14 +30,18 @@
             border: none;
             cursor: pointer;
             transition: transform 0.1s;
+            z-index: 5;
         }
         #btn-heart:active { transform: scale(0.9); }
 
+        /* Mưa tim và mèo */
         .falling {
             position: absolute;
             font-size: 25px;
+            top: -50px;
             pointer-events: none;
             animation: fall linear forwards;
+            z-index: 1;
         }
 
         @keyframes fall {
@@ -50,33 +55,32 @@
     <button id="btn-heart">❤️</button>
 
     <script>
+        // Hiệu ứng mưa rơi liên tục
+        function createFallingItem() {
+            const item = document.createElement('div');
+            item.className = 'falling';
+            item.innerHTML = Math.random() > 0.5 ? '🐱' : '❤️';
+            item.style.left = Math.random() * 100 + 'vw';
+            item.style.animationDuration = (Math.random() * 3 + 4) + 's';
+            document.body.appendChild(item);
+            setTimeout(() => item.remove(), 7000);
+        }
+        setInterval(createFallingItem, 400);
+
+        // Logic nhấn tim
         let count = 0;
         const btn = document.getElementById('btn-heart');
 
         btn.addEventListener('click', () => {
             count++;
-            // Tạo trái tim nhỏ bay lên tại vị trí click
-            createHeart(true);
-
             if (count === 50) {
-                // Bùng nổ trái tim
                 for(let i = 0; i < 50; i++) {
                     createExplosion();
                 }
                 alert("Yêu Bình nhiều lắm! ❤️");
+                count = 0; // Reset lại cho Bình ấn tiếp
             }
         });
-
-        function createHeart(isSmall) {
-            const heart = document.createElement('div');
-            heart.className = 'falling';
-            heart.innerHTML = '❤️';
-            heart.style.left = Math.random() * 100 + 'vw';
-            heart.style.top = '50%';
-            heart.style.animationDuration = '3s';
-            document.body.appendChild(heart);
-            setTimeout(() => heart.remove(), 3000);
-        }
 
         function createExplosion() {
             const heart = document.createElement('div');
@@ -85,7 +89,6 @@
             heart.style.left = '50vw';
             heart.style.top = '50vh';
             heart.style.fontSize = (Math.random() * 50 + 20) + 'px';
-            // Bay tung tóe
             const angle = Math.random() * Math.PI * 2;
             const velocity = Math.random() * 200 + 50;
             heart.style.transition = 'all 1s ease-out';
