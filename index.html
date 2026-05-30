@@ -16,26 +16,30 @@
         }
 
         .name-title {
-            font-size: 3.5rem;
+            font-size: 3rem;
             color: #ff3366;
-            text-shadow: 0 0 10px rgba(255,255,255,0.8);
-            margin: 20px 0;
-            animation: pulse 2s infinite ease-in-out;
+            margin-top: 20px;
+            text-shadow: 0 0 10px rgba(255,255,255,0.5);
+        }
+
+        /* Trái tim to ở giữa */
+        .big-heart {
+            font-size: 150px;
             cursor: pointer;
+            margin: 30px 0;
+            animation: beat 1s infinite alternate;
         }
 
-        @keyframes pulse {
-            0%, 100% { transform: scale(1); }
-            50% { transform: scale(1.05); }
+        @keyframes beat {
+            to { transform: scale(1.2); }
         }
 
-        /* Hiệu ứng mưa tim & mèo mượt mà */
-        .falling-item {
+        /* Hiệu ứng mưa tim & mèo */
+        .falling {
             position: fixed;
-            top: -50px;
             font-size: 24px;
+            top: -50px;
             pointer-events: none;
-            will-change: transform;
             animation: fall linear forwards;
         }
 
@@ -45,50 +49,33 @@
 
         .container {
             background: rgba(255, 255, 255, 0.85);
-            backdrop-filter: blur(10px);
             padding: 30px;
-            border-radius: 25px;
-            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            border-radius: 20px;
             max-width: 600px;
             width: 100%;
         }
-
-        button { 
-            background: #ff477e; 
-            border: none;
-            padding: 15px;
-            border-radius: 50px;
-            color: white;
-            font-weight: bold;
-            transition: transform 0.2s, background 0.3s;
-        }
-        button:hover { transform: scale(1.02); background: #d63384; }
     </style>
 </head>
 <body>
 
     <h1 class="name-title">Phan Ngọc Thúy Bình</h1>
+    
+    <div class="big-heart">❤️</div>
 
     <div class="container">
         </div>
 
     <script>
-        // Tạo hiệu ứng mưa mượt hơn với requestAnimationFrame nếu cần, 
-        // nhưng setInterval với CSS animation là đủ mượt cho trường hợp này
-        function createItem() {
+        function createFallingItem() {
             const item = document.createElement('div');
-            item.className = 'falling-item';
+            item.className = 'falling';
             item.innerHTML = Math.random() > 0.5 ? '🐱' : '❤️';
             item.style.left = Math.random() * 100 + 'vw';
             item.style.animationDuration = (Math.random() * 3 + 4) + 's';
             document.body.appendChild(item);
-            
-            // Tự xóa sau khi rơi xong
             setTimeout(() => item.remove(), 7000);
         }
-        
-        // Tạo liên tục mỗi 400ms để không bị lag màn hình
-        setInterval(createItem, 400);
+        setInterval(createFallingItem, 400);
     </script>
 </body>
 </html>
