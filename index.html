@@ -2,7 +2,7 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <title>Gửi Thúy Bình yêu dấu</title>
+    <title>Dành cho Thúy Bình</title>
     <style>
         body {
             margin: 0;
@@ -17,38 +17,17 @@
             overflow: hidden;
         }
 
-        .name-container {
-            text-align: center;
-            z-index: 10;
-        }
-
         .name-title {
             font-size: 5rem;
-            color: white;
-            text-shadow: 2px 2px 10px rgba(0,0,0,0.2);
+            color: #ff3366;
+            text-shadow: 2px 2px 10px rgba(255,255,255,0.5);
             animation: bounce 2s infinite;
-        }
-
-        .message {
-            font-size: 1.5rem;
-            color: #fff;
-            margin-top: 10px;
+            z-index: 10;
         }
 
         @keyframes bounce {
             0%, 100% { transform: translateY(0); }
             50% { transform: translateY(-20px); }
-        }
-
-        .heart-icon {
-            font-size: 100px;
-            animation: heartbeat 1s infinite;
-        }
-
-        @keyframes heartbeat {
-            0% { transform: scale(1); }
-            50% { transform: scale(1.2); }
-            100% { transform: scale(1); }
         }
 
         .falling {
@@ -66,17 +45,12 @@
 </head>
 <body>
 
-    <div class="name-container">
-        <div class="heart-icon">❤️</div>
-        <h1 class="name-title">Phan Ngọc Thúy Bình</h1>
-        <p class="message">Mãi mãi yêu em!</p>
-    </div>
+    <h1 class="name-title">Phan Ngọc Thúy Bình</h1>
 
     <script>
         function createFallingItem() {
             const item = document.createElement('div');
             item.className = 'falling';
-            // Tạo mưa tim và mèo xen kẽ
             item.innerHTML = Math.random() > 0.5 ? '🐱' : '❤️';
             item.style.left = Math.random() * 100 + 'vw';
             item.style.animationDuration = (Math.random() * 3 + 4) + 's';
@@ -87,7 +61,6 @@
             }, 7000);
         }
         
-        // Tạo liên tục mỗi 300ms
         setInterval(createFallingItem, 300);
     </script>
 </body>
