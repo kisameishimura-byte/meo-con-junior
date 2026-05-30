@@ -2,310 +2,93 @@
 <html lang="vi">
 <head>
     <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Bài Kiểm Tra Trắc Nghiệm Hóa Học</title>
+    <title>Dành cho Thúy Bình</title>
     <style>
         body {
-            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
-            background-color: #f0f2f5;
+            background: linear-gradient(135deg, #ff9a9e 0%, #fad0c4 100%);
             margin: 0;
             padding: 20px;
+            font-family: 'Segoe UI', sans-serif;
             display: flex;
-            justify-content: center;
+            flex-direction: column;
+            align-items: center;
+            min-height: 100vh;
         }
-        .container {
-            background-color: white;
-            padding: 30px;
-            border-radius: 12px;
-            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
-            max-width: 650px;
-            width: 100%;
-            position: relative;
-        }
-        h1 {
-            color: #1a73e8;
-            text-align: center;
-            margin-bottom: 5px;
-            text-transform: uppercase;
-        }
-        .subtitle {
-            text-align: center;
-            color: #555;
-            margin-bottom: 20px;
-            font-style: italic;
-        }
-        #timer {
-            position: sticky;
-            top: 0;
-            background-color: #ff9800;
-            color: white;
-            text-align: center;
-            padding: 10px;
-            font-weight: bold;
-            font-size: 18px;
-            border-radius: 6px;
-            margin-bottom: 25px;
-            box-shadow: 0 2px 5px rgba(0,0,0,0.1);
-            z-index: 100;
-        }
-        .question-box {
-            margin-bottom: 25px;
-            padding: 18px;
-            background-color: #fff;
-            border: 1px solid #e0e0e0;
-            border-radius: 8px;
-            transition: 0.3s;
-        }
-        .question-title {
-            font-weight: 600;
-            margin-bottom: 15px;
-            color: #333;
-            line-height: 1.5;
-        }
-        .answers label {
-            display: block;
-            padding: 12px;
-            background-color: #f8f9fa;
-            margin-bottom: 8px;
-            border-radius: 6px;
-            cursor: pointer;
-            transition: 0.2s;
-            border: 1px solid transparent;
-        }
-        .answers label:hover {
-            background-color: #e8f0fe;
-        }
-        .answers input {
-            margin-right: 12px;
-        }
-        /* Style hiển thị đúng sai sau khi nộp */
-        .correct-choice {
-            background-color: #d4edda !important;
-            border-color: #c3e6cb !important;
-            color: #155724;
-            font-weight: bold;
-        }
-        .wrong-choice {
-            background-color: #f8d7da !important;
-            border-color: #f5c6cb !important;
-            color: #721c24;
-        }
-        .feedback {
-            margin-top: 10px;
-            font-weight: bold;
-            display: none;
-        }
-        .feedback.correct { color: #28a745; }
-        .feedback.wrong { color: #dc3545; }
 
-        button {
-            display: block;
-            width: 100%;
-            padding: 14px;
-            background-color: #1a73e8;
-            color: white;
-            border: none;
-            border-radius: 6px;
-            font-size: 16px;
-            font-weight: bold;
+        .name-title {
+            font-size: 3.5rem;
+            color: #ff3366;
+            text-shadow: 0 0 10px rgba(255,255,255,0.8);
+            margin: 20px 0;
+            animation: pulse 2s infinite ease-in-out;
             cursor: pointer;
-            transition: 0.3s;
-            margin-top: 20px;
         }
-        button:hover {
-            background-color: #1557b0;
+
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
         }
-        button:disabled {
-            background-color: #ccc;
-            cursor: not-allowed;
+
+        /* Hiệu ứng mưa tim & mèo mượt mà */
+        .falling-item {
+            position: fixed;
+            top: -50px;
+            font-size: 24px;
+            pointer-events: none;
+            will-change: transform;
+            animation: fall linear forwards;
         }
-        #result {
-            margin-top: 25px;
-            padding: 20px;
-            border-radius: 8px;
-            text-align: center;
-            font-size: 22px;
+
+        @keyframes fall {
+            to { transform: translateY(110vh) rotate(360deg); }
+        }
+
+        .container {
+            background: rgba(255, 255, 255, 0.85);
+            backdrop-filter: blur(10px);
+            padding: 30px;
+            border-radius: 25px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            max-width: 600px;
+            width: 100%;
+        }
+
+        button { 
+            background: #ff477e; 
+            border: none;
+            padding: 15px;
+            border-radius: 50px;
+            color: white;
             font-weight: bold;
-            display: none;
-            background-color: #e8f0fe;
-            color: #1a73e8;
-            border: 1px solid #1a73e8;
+            transition: transform 0.2s, background 0.3s;
         }
-        sub, sup { font-size: 75%; }
+        button:hover { transform: scale(1.02); background: #d63384; }
     </style>
 </head>
 <body>
 
-<div class="container">
-    <h1>BÀI KIỂM TRA HÓA HỌC</h1>
-    <div class="subtitle">Chủ đề: Phản ứng Oxi hóa - Khử</div>
-    
-    <div id="timer">Thời gian còn lại: 10:00</div>
-    
-    <form id="quizForm">
-        
-        <div class="question-box" id="box_q1">
-            <p class="question-title">Câu 1: Trong phản ứng oxi hóa - khử, số oxi hóa thay đổi như thế nào?:</p>
-            <div class="answers">
-                <label id="lbl_q1_A"><input type="radio" name="q1" value="A"> A. Có sự thay đổi số oxi hóa</label>
-                <label id="lbl_q1_B"><input type="radio" name="q1" value="B"> B. Không có sự thay đổi số oxi hóa</label>
-                <label id="lbl_q1_C"><input type="radio" name="q1" value="C"> C. Chỉ có số oxi hóa tăng</label>
-                <label id="lbl_q1_D"><input type="radio" name="q1" value="D"> D. Chỉ có số oxi hóa giảm</label>
-            </div>
-            <div class="feedback" id="fb_q1"></div>
+    <h1 class="name-title">Phan Ngọc Thúy Bình</h1>
+
+    <div class="container">
         </div>
 
-        <div class="question-box" id="box_q2">
-            <p class="question-title">Câu 2: Cho phản ứng:<br>
-                                    Fe + 2HCl &rarr; FeCl<sub>2</sub> + H<sub>2</sub>.<br>
-                                    Fe đóng vai trò là:
-            </p>
-            <div class="answers">
-                <label id="lbl_q2_A"><input type="radio" name="q2" value="A"> A. Chất khử</label>
-                <label id="lbl_q2_B"><input type="radio" name="q2" value="B"> B. Chất oxi hóa</label>
-                <label id="lbl_q2_C"><input type="radio" name="q2" value="C"> C. Vừa là chất khử, vừa là chất oxi hóa</label>
-                <label id="lbl_q2_D"><input type="radio" name="q2" value="D"> D. Không xác định</label>
-            </div>
-            <div class="feedback" id="fb_q2"></div>
-        </div>
-
-        <div class="question-box" id="box_q3">
-           <p class="question-title">Câu 3: Cho phản ứng:<br>
-                Cl<sub>2</sub> + 2NaOH &rarr; NaCl + NaClO + H<sub>2</sub>O.<br>
-                    Cl<sub>2</sub> đóng vai trò là:
-           </p>
-            <div class="answers">
-                <label id="lbl_q3_A"><input type="radio" name="q3" value="A"> A. Chất khử</label>
-                <label id="lbl_q3_B"><input type="radio" name="q3" value="B"> B. Chất oxi hóa</label>
-                <label id="lbl_q3_C"><input type="radio" name="q3" value="C"> C. Vừa là chất khử, vừa là chất oxi hóa</label>
-                <label id="lbl_q3_D"><input type="radio" name="q3" value="D"> D. Không xác định</label>
-            </div>
-            <div class="feedback" id="fb_q3"></div>
-        </div>
-
-        <div class="question-box" id="box_q4">
-            <p class="question-title">
-    Câu 4: Cho bán phương trình sau:<br>
-    Fe<sup>2+</sup> + 2e &rarr; Fe.<br>
-    Fe<sup>2+</sup> là:
-</p>
-            <div class="answers">
-                <label id="lbl_q4_A"><input type="radio" name="q4" value="A"> A. Chất khử</label>
-                <label id="lbl_q4_B"><input type="radio" name="q4" value="B"> B. Chất oxi hóa</label>
-                <label id="lbl_q4_C"><input type="radio" name="q4" value="C"> C. Vừa là chất khử, vừa là chất oxi hóa</label>
-                <label id="lbl_q4_D"><input type="radio" name="q4" value="D"> D. Không xác định</label>
-            </div>
-            <div class="feedback" id="fb_q4"></div>
-        </div>
-
-        <div class="question-box" id="box_q5">
-            <p class="question-title">Câu 5: Trong các phản ứng sau đây, phản ứng nào là phản ứng oxi hóa khử?</p>
-            <div class="answers">
-                <label id="lbl_q5_A"><input type="radio" name="q5" value="A"> A. AgNO<sub>3</sub> + HCl &rarr; AgCl + HNO<sub>3</sub></label>
-                <label id="lbl_q5_B"><input type="radio" name="q5" value="B"> B. NaOH + HCl &rarr; NaCl + H<sub>2</sub>O</label>
-                <label id="lbl_q5_C"><input type="radio" name="q5" value="C"> C. 2NO<sub>2</sub> + 2NaOH &rarr; NaNO<sub>3</sub> + NaNO<sub>2</sub> + H<sub>2</sub>O</label>
-                <label id="lbl_q5_D"><input type="radio" name="q5" value="D"> D. CaCO<sub>3</sub> &rarr; CaO + CO<sub>2</sub></label>
-            </div>
-            <div class="feedback" id="fb_q5"></div>
-        </div>
-
-        <button type="button" id="btnSubmit" onclick="chamDiem()">Nộp Bài Xem Kết Quả</button>
-    </form>
-
-    <div id="result"></div>
-</div>
-
-<script>
-// Cài đặt thời gian làm bài (10 phút = 600 giây)
-let timeInSeconds = 120; 
-const timerElement = document.getElementById('timer');
-let isSubmitted = false;
-
-const countdown = setInterval(function() {
-    if (isSubmitted) {
-        clearInterval(countdown);
-        return;
-    }
-    
-    let minutes = Math.floor(timeInSeconds / 60);
-    let seconds = timeInSeconds % 60;
-
-    seconds = seconds < 10 ? '0' + seconds : seconds;
-    minutes = minutes < 10 ? '0' + minutes : minutes;
-
-    timerElement.innerHTML = `Thời gian còn lại: ${minutes}:${seconds}`;
-
-    if (timeInSeconds <= 0) {
-        clearInterval(countdown);
-        timerElement.innerHTML = "HẾT GIỜ LÀM BÀI!";
-        timerElement.style.backgroundColor = "#dc3545";
-        chamDiem(); // Tự động nộp bài khi hết giờ
-    }
-    timeInSeconds--;
-}, 1000);
-
-function chamDiem() {
-    if (isSubmitted) return;
-    isSubmitted = true;
-
-    // Khóa nút nộp bài và các ô input không cho sửa
-    document.getElementById('btnSubmit').disabled = true;
-    const inputs = document.querySelectorAll('input[type="radio"]');
-    inputs.forEach(input => input.disabled = true);
-
-    const dapAnDung = {
-        q1: "A",
-        q2: "A",
-        q3: "C",
-        q4: "B",
-        q5: "C"
-    };
-
-    let soCauDung = 0;
-    let tongSoCau = Object.keys(dapAnDung).length;
-    const form = document.getElementById('quizForm');
-
-    // Duyệt và kiểm tra chi tiết từng câu để hiển thị lỗi sai
-    for (let key in dapAnDung) {
-        const selectedRadio = form.querySelector(`input[name="${key}"]:checked`);
-        const correctValue = dapAnDung[key];
-        const feedbackElement = document.getElementById(`fb_${key}`);
-        
-        // Highlight đáp án ĐÚNG của câu đó lên (màu xanh)
-        document.getElementById(`lbl_${key}_${correctValue}`).classList.add('correct-choice');
-
-        if (selectedRadio) {
-            const userValue = selectedRadio.value;
-            if (userValue === correctValue) {
-                soCauDung++;
-                feedbackElement.innerHTML = "&#10004; Chính xác!";
-                feedbackElement.className = "feedback correct";
-            } else {
-                // Nếu học sinh chọn SAI thì gạch màu đỏ đáp án đã chọn
-                document.getElementById(`lbl_${key}_${userValue}`).classList.add('wrong-choice');
-                feedbackElement.innerHTML = `&#10008; Sai rồi! Đáp án đúng là ${correctValue}`;
-                feedbackElement.className = "feedback wrong";
-            }
-        } else {
-            // Trường hợp học sinh bỏ trống không khoanh
-            feedbackElement.innerHTML = `&#10008; Chưa chọn đáp án! Đáp án đúng là ${correctValue}`;
-            feedbackElement.className = "feedback wrong";
+    <script>
+        // Tạo hiệu ứng mưa mượt hơn với requestAnimationFrame nếu cần, 
+        // nhưng setInterval với CSS animation là đủ mượt cho trường hợp này
+        function createItem() {
+            const item = document.createElement('div');
+            item.className = 'falling-item';
+            item.innerHTML = Math.random() > 0.5 ? '🐱' : '❤️';
+            item.style.left = Math.random() * 100 + 'vw';
+            item.style.animationDuration = (Math.random() * 3 + 4) + 's';
+            document.body.appendChild(item);
+            
+            // Tự xóa sau khi rơi xong
+            setTimeout(() => item.remove(), 7000);
         }
-        feedbackElement.style.display = "block";
-    }
-
-    // Tính tổng số điểm theo hệ 10
-    let tongDiem = ((soCauDung / tongSoCau) * 10).toFixed(1);
-
-    // Hiển thị kết quả tổng quan
-    const vungKetQua = document.getElementById('result');
-    vungKetQua.innerHTML = `Kết quả: Đúng ${soCauDung}/${tongSoCau} câu.<br>Tổng điểm: ${tongDiem} / 10 điểm.`;
-    vungKetQua.style.display = "block";
-    
-    // Cuộn màn hình xuống dưới cùng để xem điểm luôn
-    vungKetQua.scrollIntoView({ behavior: 'smooth' });
-}
-</script>
-
+        
+        // Tạo liên tục mỗi 400ms để không bị lag màn hình
+        setInterval(createItem, 400);
+    </script>
 </body>
 </html>
